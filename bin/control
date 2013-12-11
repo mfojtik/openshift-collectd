@@ -12,8 +12,8 @@ function start() {
 }
 
 function stop() {
-    echo "Stopping DIY cartridge"
-    kill -1 $(cat COLLECTD_PID_FILE)
+    echo "Stopping collectd cartridge"
+    kill -1 $(cat $COLLECTD_PID_FILE)
 }
 
 function restart() {
