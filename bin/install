@@ -12,6 +12,7 @@ mkdir -p ${OPENSHIFT_BUILD_DEPENDENCIES_DIR}/collectd
 
 # Unpack collectd
 pushd $OPENSHIFT_BUILD_DEPENDENCIES_DIR >/dev/null
+rm -rf collectd-${COLLECTD_VERSION}* &> /dev/null
 client_result $(wget http://collectd.org/files/collectd-${COLLECTD_VERSION}.tar.bz2)
 client_result "${COLLECTD_VERSION} downloaded."
 tar xjvf collectd-${COLLECTD_VERSION}.tar.bz2
@@ -24,8 +25,8 @@ pushd $COLLECTD_BUILD_DIR >/dev/null
 make all install
 popd >/dev/null
 
-#rm -f ${COLLECTD_BUILD_DIR}.tar.bz2
-#rm -rf ${COLLECTD_BUILD_DIR}
+rm -f ${COLLECTD_BUILD_DIR}.tar.bz2
+rm -rf ${COLLECTD_BUILD_DIR}
 
 mkdir -p $OPENSHIFT_COLLECTD_DIR/collectd
 ln -sf $COLLECTD_INSTALL_DIR $OPENSHIFT_COLLECTD_DIR/collectd/$COLLECTD_VERSION
