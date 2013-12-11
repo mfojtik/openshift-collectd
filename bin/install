@@ -3,18 +3,17 @@
 source $OPENSHIFT_CARTRIDGE_SDK_BASH
 
 COLLECTD_VERSION="5.4.0"
+
 COLLECTD_BUILD_DIR="${OPENSHIFT_BUILD_DEPENDENCIES_DIR}/collectd-${COLLECTD_VERSION}"
 COLLECTD_INSTALL_DIR="${OPENSHIFT_BUILD_DEPENDENCIES_DIR}/collectd"
-
-client_result "Downloading ${COLLECTD_VERSION} to ${COLLECTD_BUILD_DIR}"
-wget -q http://collectd.org/files/${COLLECTD_VERSION}.tar.bz2 -O ${COLLECTD_BUILD_DIR}.tar.bz2
 
 # Install directory
 mkdir -p ${OPENSHIFT_BUILD_DEPENDENCIES_DIR}/collectd
 
 # Unpack collectd
-client_result "Unpacking collectd"
 pushd $OPENSHIFT_BUILD_DEPENDENCIES_DIR >/dev/null
+client_result $(wget http://collectd.org/files/collectd-${COLLECTD_VERSION}.tar.bz2)
+client_result "${COLLECTD_VERSION} downloaded."
 tar xjvf collectd-${COLLECTD_VERSION}.tar.bz2
 popd >/dev/null
 
@@ -28,10 +27,11 @@ popd >/dev/null
 #rm -f ${COLLECTD_BUILD_DIR}.tar.bz2
 #rm -rf ${COLLECTD_BUILD_DIR}
 
-ln -sf $COLLECTD_INSTALL_DIR $OPENSHIFT_COLLECTD_DIR/$COLLECTD_VERSION
+mkdir -p $OPENSHIFT_COLLECTD_DIR/collectd
+ln -sf $COLLECTD_INSTALL_DIR $OPENSHIFT_COLLECTD_DIR/collectd/$COLLECTD_VERSION
 
 env_dir="${OPENSHIFT_COLLECTD_DIR}/env"
 set_env_var 'OPENSHIFT_COLLECTD_VERSION' $env_dir $COLLECTD_VERSION
-set_env_var 'OPENSHIFT_COLLECTD_INSTALL_PATH' $env_dir $OPENSHIFT_COLLECTD_DIR/$COLLECTD_VERSION
+set_env_var 'OPENSHIFT_COLLECTD_INSTALL_PATH' $env_dir $OPENSHIFT_COLLECTD_DIR/collectd/$COLLECTD_VERSION
 
 echo "${COLLECTD_VERSION} installed successfully."
