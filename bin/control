@@ -2,13 +2,14 @@
 
 source $OPENSHIFT_CARTRIDGE_SDK_BASH
 
+COLLECTD_PATH=${OPENSHIFT_COLLECTD_DIR}/collectd/5.4.0
 COLLECTD_PID_FILE=$OPENSHIFT_COLLECTD_DIR/run/collectd.pid
 
 function start() {
     echo "Starting collectd cartridge"
-    #$OPENSHIFT_COLLECTD_INSTALL_PATH/bin/collectd \
-    #  -C $OPENSHIFT_COLLECTD_DIR/conf/collectd.conf \
-    #  -P $COLLECTD_PID_FILE
+    $COLLECTD_PATH/bin/collectd \
+      -C $OPENSHIFT_COLLECTD_DIR/conf/collectd.conf \
+      -P $COLLECTD_PID_FILE
 }
 
 function stop() {
