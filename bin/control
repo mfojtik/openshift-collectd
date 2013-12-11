@@ -13,7 +13,9 @@ function start() {
 
 function stop() {
     echo "Stopping collectd cartridge"
-    kill -1 $(cat $COLLECTD_PID_FILE)
+    if [ -f "${COLLECTD_PID_FILE}"]; then
+      kill -1 $(cat $COLLECTD_PID_FILE)
+    fi
 }
 
 function restart() {
