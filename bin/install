@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash
 
 source $OPENSHIFT_CARTRIDGE_SDK_BASH
 
@@ -6,20 +6,20 @@ COLLECD_VERSION=5.4.0
 COLLECD_BUILD_DIR=${OPENSHIFT_BUILD_DEPENDENCIES_DIR}/collectd-${COLLECTD_VERSION}
 COLLECD_INSTALL_DIR=${OPENSHIFT_BUILD_DEPENDENCIES_DIR}/collectd
 
-echo "Downloading ${COLLECTD_VERSION}"
+client_result "Downloading ${COLLECTD_VERSION}"
 wget -q http://collectd.org/files/${COLLECTD_VERSION}.tar.bz2 -O ${COLLECD_BUILD_DIR}.tar.bz2
 
 # Install directory
 mkdir -p ${OPENSHIFT_BUILD_DEPENDENCIES_DIR}/collectd
 
 # Unpack collectd
-echo "Unpacking collectd"
+client_result "Unpacking collectd"
 pushd $OPENSHIFT_BUILD_DEPENDENCIES_DIR >/dev/null
 tar xjf collectd-${COLLECTD_VERSION}.tar.bz2
 popd >/dev/null
 
 # Build collectd
-echo "Building collectd"
+client_result "Building collectd"
 pushd $COLLECD_BUILD_DIR >/dev/null
 ./configure --prefix=$COLLECD_INSTALL_DIR
 make all install
