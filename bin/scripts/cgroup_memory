@@ -1,0 +1,9 @@
+#!/bin/bash
+
+HOSTNAME="${COLLECTD_HOSTNAME:-localhost}"
+INTERVAL="${COLLECTD_INTERVAL:-60}"
+
+while sleep "$INTERVAL"; do
+  VALUE=$(oo-cgroup-read memory.usage_in_bytes)
+  echo "PUTVAL \"$HOSTNAME/openshift/gear-memory-left\" interval=$INTERVAL N:$VALUE"
+done

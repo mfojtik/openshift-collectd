@@ -9,13 +9,15 @@ LoadPlugin logfile
   PrintSeverity false
 </Plugin>
 
+LoadPlugin exec
+
+<Plugin exec>
+  Exec "<%=ENV['USER']%>" "<%=ENV['OPENSHIFT_COLLECTD_DIR']%>/bin/scripts/cgroup_memory"
+</Plugin>
+
 LoadPlugin csv
 
 <Plugin "csv">
   DataDir "<%=ENV['OPENSHIFT_COLLECTD_DIR']%>data"
   StoreRates true
 </Plugin>
-
-LoadPlugin cpu
-LoadPlugin load
-LoadPlugin memory
