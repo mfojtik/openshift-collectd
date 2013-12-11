@@ -16,6 +16,7 @@ function stop() {
     if [ -f "${COLLECTD_PID_FILE}"]; then
       kill -1 $(cat $COLLECTD_PID_FILE)
     fi
+    return 0
 }
 
 function restart() {
