@@ -1,0 +1,45 @@
+#!/bin/bash
+
+source $OPENSHIFT_CARTRIDGE_SDK_BASH
+
+COLLECTD_PID_FILE=$OPENSHIFT_COLLECTD_DIR/run/collectd.pid
+
+function start() {
+    echo "Starting collectd cartridge"
+    $OPENSHIFT_COLLECTD_INSTALL_PATH/bin/collectd \
+      -C $OPENSHIFT_COLLECTD_DIR/conf/collectd.conf \
+      -P $COLLECTD_PID_FILE
+}
+
+function stop() {
+    echo "Stopping DIY cartridge"
+    kill -1 $(cat COLLECTD_PID_FILE)
+}
+
+function restart() {
+    stop
+    start
+}
+
+function status() {
+  return 0
+}
+
+function reload() {
+    client_result "Reloading collectd cart"
+    restart
+}
+
+function tidy() {
+  echo "Nothing to do."
+}
+
+case "$1" in
+  start) start ;;
+  stop) stop ;;
+  restart) restart ;;
+  status) status ;;
+  reload) reload ;;
+  tidy) tidy ;;
+  *) exit 0
+esac
