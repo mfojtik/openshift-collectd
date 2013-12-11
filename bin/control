@@ -7,7 +7,7 @@ COLLECTD_PID_FILE=$OPENSHIFT_COLLECTD_DIR/run/collectd.pid
 
 function start() {
     echo "Starting collectd cartridge"
-    $COLLECTD_PATH/bin/collectd \
+    $COLLECTD_PATH/sbin/collectd \
       -C $OPENSHIFT_COLLECTD_DIR/conf/collectd.conf \
       -P $COLLECTD_PID_FILE
 }
