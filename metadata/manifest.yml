@@ -21,3 +21,4 @@ Provides:
 Scaling:
   Min: 1
   Max: 1
+Source-Url: https://github.com/mfojtik/openshift-collectd.git
