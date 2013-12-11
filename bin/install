@@ -2,12 +2,12 @@
 
 source $OPENSHIFT_CARTRIDGE_SDK_BASH
 
-COLLECD_VERSION="5.4.0"
-COLLECD_BUILD_DIR="${OPENSHIFT_BUILD_DEPENDENCIES_DIR}/collectd-${COLLECTD_VERSION}"
-COLLECD_INSTALL_DIR="${OPENSHIFT_BUILD_DEPENDENCIES_DIR}/collectd"
+COLLECTD_VERSION="5.4.0"
+COLLECTD_BUILD_DIR="${OPENSHIFT_BUILD_DEPENDENCIES_DIR}/collectd-${COLLECTD_VERSION}"
+COLLECTD_INSTALL_DIR="${OPENSHIFT_BUILD_DEPENDENCIES_DIR}/collectd"
 
-client_result "Downloading ${COLLECTD_VERSION} to ${COLLECD_BUILD_DIR}"
-wget -q http://collectd.org/files/${COLLECTD_VERSION}.tar.bz2 -O ${COLLECD_BUILD_DIR}.tar.bz2
+client_result "Downloading ${COLLECTD_VERSION} to ${COLLECTD_BUILD_DIR}"
+wget -q http://collectd.org/files/${COLLECTD_VERSION}.tar.bz2 -O ${COLLECTD_BUILD_DIR}.tar.bz2
 
 # Install directory
 mkdir -p ${OPENSHIFT_BUILD_DEPENDENCIES_DIR}/collectd
@@ -20,15 +20,15 @@ popd >/dev/null
 
 # Build collectd
 client_result "Building collectd"
-pushd $COLLECD_BUILD_DIR >/dev/null
-./configure --prefix=$COLLECD_INSTALL_DIR
+pushd $COLLECTD_BUILD_DIR >/dev/null
+./configure --prefix=$COLLECTD_INSTALL_DIR
 make all install
 popd >/dev/null
 
-rm -f ${COLLECD_BUILD_DIR}.tar.bz2
-rm -rf ${COLLECD_BUILD_DIR}
+rm -f ${COLLECTD_BUILD_DIR}.tar.bz2
+rm -rf ${COLLECTD_BUILD_DIR}
 
-ln -sf $COLLECD_INSTALL_DIR $OPENSHIFT_COLLECTD_DIR/$COLLECTD_VERSION
+ln -sf $COLLECTD_INSTALL_DIR $OPENSHIFT_COLLECTD_DIR/$COLLECTD_VERSION
 
 env_dir="${OPENSHIFT_COLLECTD_DIR}/env"
 set_env_var 'OPENSHIFT_COLLECTD_VERSION' $env_dir $COLLECTD_VERSION
